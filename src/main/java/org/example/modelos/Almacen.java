@@ -1,9 +1,10 @@
 package org.example.modelos;
 
+import java.util.Objects;
+
 public class Almacen {
-    private Integer identificador;
+    private Integer identificador, capacidad;
     private String nombre;
-    private Integer capacidad;
 
     public Integer getIdentificador() {
         return identificador;
@@ -50,5 +51,18 @@ public class Almacen {
                 ", nombre='" + nombre + '\'' +
                 ", capacidad=" + capacidad +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Almacen almacen = (Almacen) o;
+        return Objects.equals(identificador, almacen.identificador) && Objects.equals(capacidad, almacen.capacidad) && Objects.equals(nombre, almacen.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identificador, capacidad, nombre);
     }
 }

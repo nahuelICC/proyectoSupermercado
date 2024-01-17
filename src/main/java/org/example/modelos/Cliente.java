@@ -2,12 +2,11 @@ package org.example.modelos;
 
 import org.example.enumerados.TipoCliente;
 
+import java.util.Objects;
+
 public class Cliente {
     private Integer identificador;
-    private String dni;
-    private String nombre;
-    private String apellidos;
-    private String direccion;
+    private String dni, nombre, apellidos, direccion;
     private TipoCliente tipoCliente;
 
     public Integer getIdentificador() {
@@ -68,6 +67,19 @@ public class Cliente {
                 ", direccion='" + direccion + '\'' +
                 ", tipoCliente=" + tipoCliente +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(identificador, cliente.identificador) && Objects.equals(dni, cliente.dni) && Objects.equals(nombre, cliente.nombre) && Objects.equals(apellidos, cliente.apellidos) && Objects.equals(direccion, cliente.direccion) && tipoCliente == cliente.tipoCliente;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identificador, dni, nombre, apellidos, direccion, tipoCliente);
     }
 
     public Cliente(Integer identificador, String dni, String nombre, String apellidos, String direccion, TipoCliente tipoCliente) {

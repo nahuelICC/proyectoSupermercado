@@ -3,6 +3,7 @@ package org.example.modelos;
 import org.example.enumerados.TipoProducto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Producto {
     private Integer identificador;
@@ -11,6 +12,7 @@ public class Producto {
     private LocalDate fechaCaducidad;
     private TipoProducto tipoProducto;
     private Almacen almacen;
+    private Double precio;
 
     public Integer getIdentificador() {
         return identificador;
@@ -60,6 +62,14 @@ public class Producto {
         this.almacen = almacen;
     }
 
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
     @Override
     public String toString() {
         return "Producto{" +
@@ -69,16 +79,31 @@ public class Producto {
                 ", fechaCaducidad=" + fechaCaducidad +
                 ", tipoProducto=" + tipoProducto +
                 ", almacen=" + almacen +
+                ", precio=" + precio +
                 '}';
     }
 
-    public Producto(Integer identificador, String codigo, String descripcion, LocalDate fechaCaducidad, TipoProducto tipoProducto, Almacen almacen) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return Objects.equals(identificador, producto.identificador) && Objects.equals(codigo, producto.codigo) && Objects.equals(descripcion, producto.descripcion) && Objects.equals(fechaCaducidad, producto.fechaCaducidad) && tipoProducto == producto.tipoProducto && Objects.equals(almacen, producto.almacen) && Objects.equals(precio, producto.precio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identificador, codigo, descripcion, fechaCaducidad, tipoProducto, almacen, precio);
+    }
+
+    public Producto(Integer identificador, String codigo, String descripcion, LocalDate fechaCaducidad, TipoProducto tipoProducto, Almacen almacen, Double precio) {
         this.identificador = identificador;
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.fechaCaducidad = fechaCaducidad;
         this.tipoProducto = tipoProducto;
         this.almacen = almacen;
+        this.precio = precio;
     }
 
     public Producto() {
@@ -91,5 +116,6 @@ public class Producto {
         this.fechaCaducidad = producto.getFechaCaducidad();
         this.tipoProducto = producto.getTipoProducto();
         this.almacen = producto.getAlmacen();
+        this.precio = producto.getPrecio();
     }
 }

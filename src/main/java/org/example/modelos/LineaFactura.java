@@ -44,7 +44,6 @@ public class LineaFactura {
         return "LineaFactura{" +
                 "idetificador=" + idetificador +
                 ", cantidad=" + cantidad +
-                ", factura=" + factura +
                 ", producto=" + producto +
                 '}';
     }

@@ -108,7 +108,6 @@ public class Empleado {
                 ", apellidos='" + apellidos + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", numTelefono='" + numTelefono + '\'' +
-                ", empresa=" + empresa +
                 ", contrato=" + contrato +
                 '}';
     }

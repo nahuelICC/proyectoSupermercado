@@ -38,7 +38,6 @@ public class GeneraDatosPrueba {
         empleado.setApellidos(faker.name().lastName());
         empleado.setDireccion(faker.address().fullAddress());
         empleado.setDni(faker.idNumber().valid());
-        empleado.setNumTelefono(faker.phoneNumber().cellPhone());
         empleado.setContrato(generaContrato());
 
         return empleado;

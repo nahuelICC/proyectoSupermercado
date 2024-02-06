@@ -55,7 +55,8 @@ public class UtilidadesContrato {
         mapaTCListaContratos.keySet().stream()
                 .forEach(k-> result.put(k,mapaTCListaContratos.get(k).size()));
         //return result;
-        return contratos.stream().collect(Collectors.groupingBy(Contrato :: getTipoContrato, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+        //return contratos.stream().collect(Collectors.groupingBy(Contrato :: getTipoContrato, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+        return contratos.stream().collect(Collectors.groupingBy(Contrato :: getTipoContrato, Collectors.summingInt(c->1)));
     }
 
     //Que devuelve un mapa con los tipo de contrato y la lista con todos los contratos que tienen dicho tipo

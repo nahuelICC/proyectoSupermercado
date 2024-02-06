@@ -25,7 +25,7 @@ public class GeneraDatosPrueba {
     }
     public static List<Contrato> generaContratos(Integer n){
         List<Contrato> contratos = new ArrayList<>();
-        for(Integer i=0; i==n ; i++){
+        for(Integer i=0; i<n ; i++){
             contratos.add(generaContrato());
         }
         return contratos;
@@ -62,5 +62,21 @@ public class GeneraDatosPrueba {
         empresa.setEmpleados(generaEmpleados(numEmpleados,empresa));
 
         return empresa;
+    }
+    public static Empresa generaEmpresa(){
+        Empresa empresa= new Empresa();
+        empresa.setIdentificador(faker.number().numberBetween(1,999));
+        empresa.setCodigoEmpresa(faker.company().name());
+        empresa.setTipoEmpresa(TipoEmpresa.values()[faker.number().numberBetween(0, TipoContrato.values().length)]);
+        empresa.setEmpleados(generaEmpleados(faker.number().numberBetween(5,20),empresa));
+
+        return empresa;
+    }
+    public static List<Empresa> generaEmpresas(Integer n){
+        List<Empresa> empresas = new ArrayList<>();
+        for(Integer i=0; i<n ; i++){
+            empresas.add(generaEmpresa());
+        }
+        return empresas;
     }
 }

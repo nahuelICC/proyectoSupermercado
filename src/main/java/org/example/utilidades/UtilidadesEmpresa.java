@@ -7,7 +7,11 @@ import org.example.modelos.Empleado;
 import org.example.modelos.Empresa;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.mapping;
+import static org.yaml.snakeyaml.nodes.NodeId.mapping;
 
 public class UtilidadesEmpresa {
     public static List<Empleado> getEmpleadosPorContrato(Empresa empresa, TipoContrato tipoContrato){
@@ -123,13 +127,23 @@ public class UtilidadesEmpresa {
         }
         return result;
     }
+    public static Map<TipoContrato, List<Empleado>> getEmpleadosPorTipoContratoStream(Empresa empresa){
+        return empresa.getEmpleados().stream()
+                .collect(Collectors.groupingBy(e->e.getContrato().getTipoContrato()));
+    }
     //Que hace lo mismo que el apartado anterior pero a partir de una lista de empresas
-    public Map<Empresa, Map<TipoContrato, List<Empleado>>> getEmpleadosPorTipoContrato(List<Empresa> empresas){
+    public Map<Empresa, Map<TipoContrato, List<Empleado>>> getEmpresaPorTipoContrato(List<Empresa> empresas){
         Map<Empresa, Map<TipoContrato, List<Empleado>>> result = new HashMap<>();
         for (Empresa empresa : empresas){
             result.put(empresa, getEmpleadosPorTipoContrato(empresa));
         }
         return result;
     }
-
+    public static Map<Empresa, Map<TipoContrato, List<Empleado>>> getEmpresaPorTipoContratoStream(List<Empresa> empresas){
+        Map<Empresa, Map<TipoContrato, List<Empleado>>> result = new HashMap<>();
+        for (Empresa empresa : empresas){
+            result.put(empresa, getEmpleadosPorTipoContratoStream(empresa));
+        }
+        return result;
+    }
 }

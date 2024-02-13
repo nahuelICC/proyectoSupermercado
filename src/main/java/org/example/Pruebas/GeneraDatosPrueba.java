@@ -23,6 +23,13 @@ public class GeneraDatosPrueba {
         contrato.setTipoContrato(TipoContrato.values()[faker.number().numberBetween(0,TipoContrato.values().length)]);
         return contrato;
     }
+    public static Contrato generaContrato(Double salario, TipoContrato tipoContrato){
+        Contrato contrato = new Contrato();
+        contrato.setIdenetificador(faker.number().numberBetween(1,999));
+        contrato.setSalarioBase(salario);
+        contrato.setTipoContrato(tipoContrato);
+        return contrato;
+    }
     public static List<Contrato> generaContratos(Integer n){
         List<Contrato> contratos = new ArrayList<>();
         for(Integer i=0; i<n ; i++){

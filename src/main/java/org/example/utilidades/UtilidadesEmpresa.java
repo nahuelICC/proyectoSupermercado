@@ -8,9 +8,10 @@ import org.example.modelos.Empresa;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.*;
 import static org.yaml.snakeyaml.nodes.NodeId.mapping;
 
 public class UtilidadesEmpresa {
@@ -141,9 +142,30 @@ public class UtilidadesEmpresa {
     }
     public static Map<Empresa, Map<TipoContrato, List<Empleado>>> getEmpresaPorTipoContratoStream(List<Empresa> empresas){
         Map<Empresa, Map<TipoContrato, List<Empleado>>> result = new HashMap<>();
-        for (Empresa empresa : empresas){
-            result.put(empresa, getEmpleadosPorTipoContratoStream(empresa));
-        }
+        empresas.stream()
+                .forEach(k->result.put(k, getEmpleadosPorTipoContratoStream(k)));
         return result;
     }
+    //Que devuelve la lista de empleados pertenecientes de las empresas PYMES que se pasan cuyo contrato es del tipo PRACTICAS
+    public List<Empleado> getEmpleadosPymePracticas(List<Empresa> empresas){
+        return empresas.stream()
+                .filter(empresa -> empresa.getTipoEmpresa() == TipoEmpresa.PYME)
+                .flatMap(empresa -> empresa.getEmpleados().stream())
+                .filter(empleado -> empleado.getContrato().getTipoContrato() == TipoContrato.PRACTICAS)
+                .collect(toList());
+
+    }
+
+    //Que devuelva un mapa con el empleado que más cobra de cada empresa.
+    public Map<Empresa,Empleado> getLosMejorPagadosPorEmpresa(List<Empresa> empresas){
+        Map<Empresa, Empleado> result = new HashMap<>();
+        empresas.stream()
+                .forEach(k->k.getEmpleados().stream().max(Comparator.comparingDouble(e->e.getContrato().getSalarioBase())).orElse(new Empleado()));
+        return result;
+    }
+    public Map<TipoEmpresa,Integer> getNumEmpleadosPorTipoEmpresaStream2(List<Empresa> empresas){
+        return empresas.stream()
+                .collect(Collectors.groupingBy(Empresa::getTipoEmpresa, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+    }
+
 }

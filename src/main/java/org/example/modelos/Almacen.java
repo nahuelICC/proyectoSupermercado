@@ -10,21 +10,26 @@ public class Almacen {
         return identificador;
     }
 
+
     public void setIdentificador(Integer identificador) {
         this.identificador = identificador;
     }
+
 
     public String getNombre() {
         return nombre;
     }
 
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+
     public Integer getCapacidad() {
         return capacidad;
     }
+
 
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;

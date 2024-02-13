@@ -1,7 +1,10 @@
 package org.example.utilidades;
 
+import org.example.Pruebas.GeneraDatosPrueba;
 import org.example.enumerados.TipoContrato;
 import org.example.modelos.Contrato;
+import org.example.modelos.Empleado;
+import org.example.modelos.Empresa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,4 +66,19 @@ public class UtilidadesContrato {
     public Map<TipoContrato, List<Contrato>> getListContratosPorTipo(List<Contrato> contratos){
         return contratos.stream().collect(Collectors.groupingBy(Contrato :: getTipoContrato));
     }
+    //Que a partir de los datos que se le pasan genera un empleado
+    //asignándole empresa y contrato. EL método tiene que generar los
+    //identificadores automáticamente, siendo cada identificador creado
+    //diferente.
+    public Empleado contratarTrabajador(Empresa e, String dni, String nombre, String apellidos, String direccion, TipoContrato tipo, Double salario){
+        Empleado empleado = new Empleado();
+        empleado.setDni(dni);
+        empleado.setEmpresa(e);
+        empleado.setDireccion(direccion);
+        empleado.setNombre(nombre);
+        empleado.setApellidos(apellidos);
+        empleado.setContrato(GeneraDatosPrueba.generaContrato(salario, tipo));
+        return empleado;
+    }
+
 }

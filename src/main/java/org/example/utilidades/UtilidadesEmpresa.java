@@ -142,8 +142,7 @@ public class UtilidadesEmpresa {
     }
     public static Map<Empresa, Map<TipoContrato, List<Empleado>>> getEmpresaPorTipoContratoStream(List<Empresa> empresas){
         Map<Empresa, Map<TipoContrato, List<Empleado>>> result = new HashMap<>();
-        empresas.stream()
-                .forEach(k->result.put(k, getEmpleadosPorTipoContratoStream(k)));
+        empresas.forEach(k->result.put(k, getEmpleadosPorTipoContratoStream(k)));
         return result;
     }
     //Que devuelve la lista de empleados pertenecientes de las empresas PYMES que se pasan cuyo contrato es del tipo PRACTICAS
@@ -152,15 +151,14 @@ public class UtilidadesEmpresa {
                 .filter(empresa -> empresa.getTipoEmpresa() == TipoEmpresa.PYME)
                 .flatMap(empresa -> empresa.getEmpleados().stream())
                 .filter(empleado -> empleado.getContrato().getTipoContrato() == TipoContrato.PRACTICAS)
-                .collect(toList());
+                .collect(Collectors.toList());
 
     }
 
     //Que devuelva un mapa con el empleado que más cobra de cada empresa.
     public Map<Empresa,Empleado> getLosMejorPagadosPorEmpresa(List<Empresa> empresas){
         Map<Empresa, Empleado> result = new HashMap<>();
-        empresas.stream()
-                .forEach(k->k.getEmpleados().stream().max(Comparator.comparingDouble(e->e.getContrato().getSalarioBase())).orElse(new Empleado()));
+        empresas.forEach(k->result.put(k,k.getEmpleados().stream().max(Comparator.comparingDouble(e->e.getContrato().getSalarioBase())).orElse(new Empleado())));
         return result;
     }
     public Map<TipoEmpresa,Integer> getNumEmpleadosPorTipoEmpresaStream2(List<Empresa> empresas){
